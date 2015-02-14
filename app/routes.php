@@ -51,22 +51,29 @@ Route::group(array('before' => 'auth'), function(){
 				array(
 				'as'=>'crear-auto',
 				'uses'=>'AutoController@getCrear'
+				)		
+			);
+			Route::post('/dashboard/auto/creado', 
+				array(
+				'as'=>'crear-auto-post',
+				'uses'=>'AutoController@postCrear'
 				)
-
-				
 			);
 
 			//password change
-			Route::get('/usuario/contraseña',array(
+			Route::get('/usuario/contraseña',
+				array(
 			'as'=>'cambio-password',
 			'uses'=>'UsuarioController@getCambiaClave'
-			));
+				)
+			);
 
 			Route::get('/dashboard/auto/modelo',
 				array(
 					'as'=>'seleccione-modelo',
 					'uses'=>'ModelosController@getModeloxMarca'
-			));
+				)
+			);
 			
 		});
 		

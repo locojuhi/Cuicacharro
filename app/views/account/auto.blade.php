@@ -1,5 +1,5 @@
  
-@extends('layouts.main')
+@extends('layouts.main2')
 @extends('layouts.jumbotron')
 
 		@section('contenido')
@@ -22,7 +22,7 @@
 					});
 				</script>
 			@section('jumbomidle')
-				<form role="form" method="POST" action=''>
+				<form role="form" method="POST" action="{{URL::route('crear-auto-post')}}">
 					<div class="form-group">
 						<label for="nick">Placa:</label>
 						<input type="text" class="form-control" id="placa" placeholder="Placa..." name="placa" {{ (Input::old('placa')) ? 'value="'. e(Input::old('placa')) .'"':''}}>
