@@ -10,29 +10,16 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-/*
-Route::get('/', function()
-{
-	return View::make('index');
-});
-*/
-
-/*Route::get('/', array(
-
-	'as'=>'index',
-	'uses'=> 'HomeController@index'
-	));*/
-
-
 Route::group(array('before' => 'auth'), function(){
 
 		//crsf proteccion
 		Route::group(array('before'=>'csrf'), function(){
-
-			Route::post('/usuario/contraseña',array(
+			Route::post('/usuario/contraseña',
+				array(
 			'as'=>'cambio-password-post',
 			'uses'=>'UsuarioController@postCambiaClave'
-			));
+				)
+			);
 		});
 			Route::get('/dashboard', 
 				array(
@@ -40,7 +27,6 @@ Route::group(array('before' => 'auth'), function(){
 				'uses'=>'AutoController@mainpanel'
 				)
 			);
-
 			Route::get('/dashboard/cerrar', 
 				array(
 				'as'=>'cerrar-sesion',
@@ -59,7 +45,6 @@ Route::group(array('before' => 'auth'), function(){
 				'uses'=>'AutoController@postCrear'
 				)
 			);
-
 			//password change
 			Route::get('/usuario/contraseña',
 				array(
@@ -67,20 +52,15 @@ Route::group(array('before' => 'auth'), function(){
 			'uses'=>'UsuarioController@getCambiaClave'
 				)
 			);
-
 			Route::get('/dashboard/auto/modelo',
 				array(
 					'as'=>'seleccione-modelo',
 					'uses'=>'ModelosController@getModeloxMarca'
 				)
-			);
-			
-		});
-		
+			);	
+		});		
 //Grupo no identificado
 Route::group(array('before'=>'guest'), function(){
-
-
 	//Protecion del grupo CSRF
 	Route::group(array('before'=>'csrf'), function(){
 		//crear una cuenta post
@@ -89,9 +69,6 @@ Route::group(array('before'=>'guest'), function(){
 		'uses'=>'UsuarioController@postCreate'
 
 		));
-
-		
-
 		Route::post('/inicio', array(
 			'as'=>'login-post',
 			'uses'=>'UsuarioController@postLoguear'
@@ -102,7 +79,6 @@ Route::group(array('before'=>'guest'), function(){
 			'uses'=>'UsuarioController@postUsuarioRecuperar'
 		));
 	});
-
 		//recuperar password
 		Route::get('/usuario/recuperar', array(
 			'as'=>'usuario-recuperar-password',
@@ -119,12 +95,6 @@ Route::group(array('before'=>'guest'), function(){
 			'as'=>'index-get',
 			'uses'=>'UsuarioController@getLoguear'
 		));
-
-
-
-		
-	
-
 	//Crear una cuenta (get)
 	Route::get('/usuario/crear', array(
 		'as'=>'usuario-crear',
