@@ -30,13 +30,13 @@
 							echo 
 							"<tr>
 					   			<td>
-					   			<a href='google/{$cars[$x]['id']}' class='btn btn-primary btn-lg btn-block'>". $cars[$x]['placa'];
+					   			<a href='dashboard/auto/selected/{$cars[$x]['id']}' class='btn btn-primary btn-lg btn-block'>". $cars[$x]['placa'];
 								     echo "</td></tr>";
 								 }else{
 								 	echo "<tr>
 									
 					   			<td>
-					   			<a href='google/{$cars[$x]['id']}' class='btn btn-success btn-lg btn-block'>" . $cars[$x]['placa'];
+					   			<a href='dashboard/auto/selected/{$cars[$x]['id']}' class='btn btn-success btn-lg btn-block'>" . $cars[$x]['placa'];
 								     echo "</td></tr>";
 
 					 }
