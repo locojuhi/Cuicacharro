@@ -4,9 +4,9 @@ class AutoController extends BaseController {
 	//Este es para entrar en la ventana principal del usuario
 	public function mainpanel(){
 		//$usuario=Usuario::find(Auth::user()->id);	
-		$usuario = Auto::all();
-		$autos = DB::table('autos')->where('id_usuario', Auth::user()->id)->lists('placa');
-		View::share('auto', $autos);
+		//$usuario = Auto::all();
+		//$autos = DB::table('autos')->where('id_usuario', Auth::user()->id)->lists('placa');
+		View::share('auto', Auto::where('id_usuario','=', Auth::user()->id)->get(array('placa','id')));
 		return View::make('mainpanel');
 		
 		

@@ -27,17 +27,17 @@
 
 					for($x = 0; $x <  $arrlength; $x++) {
 						if($x%2==0){
-							echo '<tr>
-						
-		   			<td>
-		   			<a href="" class="btn btn-primary btn-lg btn-block">' . $cars[$x];
-					     echo "</tr>";
-					 }else{
-					 	echo '<tr>
-						
-		   			<td>
-		   			<a href="" class="btn btn-success btn-lg btn-block">' . $cars[$x];
-					     echo "</tr>";
+							echo 
+							"<tr>
+					   			<td>
+					   			<a href='google/{$cars[$x]['id']}' class='btn btn-primary btn-lg btn-block'>". $cars[$x]['placa'];
+								     echo "</td></tr>";
+								 }else{
+								 	echo "<tr>
+									
+					   			<td>
+					   			<a href='google/{$cars[$x]['id']}' class='btn btn-success btn-lg btn-block'>" . $cars[$x]['placa'];
+								     echo "</td></tr>";
 
 					 }
 					         

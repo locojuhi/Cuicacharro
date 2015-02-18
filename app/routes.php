@@ -107,5 +107,8 @@ Route::group(array('before'=>'guest'), function(){
 		'uses'=>'UsuarioController@getActivar'
 
 	));
+	Route::get('/hola/{nombre}', function($nombre){
+		return $nombre;
+	});
 });
 
