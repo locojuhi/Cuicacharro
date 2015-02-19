@@ -1,3 +1,4 @@
 A mediano plazo:
   ☐ Validar input de kilometraje (solo admintir valores enteros)
-    
+  ☐ Arreglar problema en las barras de navegacion... (ScrollBars)
+  ☐ investigar sobre faker

@@ -9,7 +9,14 @@ class AutoController extends BaseController {
 		View::share('auto', Auto::where('id_usuario','=', Auth::user()->id)->get(array('placa','id')));
 		return View::make('mainpanel');
 		
-		
+	}//Para seleccionar trabajar con un auto
+	public function getAutoSelected($id){
+
+		View::share('id_auto', Auto::where('id','=', $id)->get(array('placa')));
+
+		/*$auto= Auto::where('id', '=', $id)
+		->where('id_usuario','=', Auth::user()->id);*/
+		return View::make('account.autoselected');
 	}
 	//Esto abre la vista para añadir un auto a la lista.
 	public function getCrear(){
@@ -19,7 +26,7 @@ class AutoController extends BaseController {
 		return View::make('account.auto');
 		
 	}
-
+	//para crear un auto nuevo en cada cuenta de usuario
 	public function postCrear(){
 		//Reglas para validar
 		$validador = Validator::make(Input::all(),

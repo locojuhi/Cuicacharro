@@ -2,7 +2,7 @@
 @extends('layouts.jumbotron')
 @section('contenido')
 	@section('jumbomidle')
-	<h1>Bienvenido, {{$user=Auth::user()->usuario;}}</h1>
+	<h1>Bienvenido, {{Str::upper($user=Auth::user()->usuario)}}</h1>
 		<div class="row">
 			
 			<div class="col-xs-4 col-md-4 col-lg-4">
@@ -30,13 +30,13 @@
 							echo 
 							"<tr>
 					   			<td>
-					   			<a href='dashboard/auto/selected/{$cars[$x]['id']}' class='btn btn-primary btn-lg btn-block'>". $cars[$x]['placa'];
+					   			<a href='dashboard/auto/selected/{$cars[$x]['id']}' class='btn btn-primary btn-lg btn-block'>". Str::upper($cars[$x]['placa']);
 								     echo "</td></tr>";
 								 }else{
 								 	echo "<tr>
 									
 					   			<td>
-					   			<a href='dashboard/auto/selected/{$cars[$x]['id']}' class='btn btn-success btn-lg btn-block'>" . $cars[$x]['placa'];
+					   			<a href='dashboard/auto/selected/{$cars[$x]['id']}' class='btn btn-success btn-lg btn-block'>" . Str::upper($cars[$x]['placa']);
 								     echo "</td></tr>";
 
 					 }

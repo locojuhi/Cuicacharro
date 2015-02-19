@@ -57,6 +57,13 @@ Route::group(array('before' => 'auth'), function(){
 					'as'=>'seleccione-modelo',
 					'uses'=>'ModelosController@getModeloxMarca'
 				)
+			);
+			//route para meterse a una pagina cuando se selecciona un auto
+			Route::get('/dashboard/auto/selected/{id}',
+				array(
+					'as'=>'seleccion-carro',
+					'uses'=>'AutoController@getAutoSelected'
+				)
 			);	
 		});		
 //Grupo no identificado

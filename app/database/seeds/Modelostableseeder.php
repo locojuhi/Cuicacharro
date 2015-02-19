@@ -4,7 +4,7 @@ class Modelostableseeder extends Seeder {
 
     public function run()
     {
-        DB::table('Modelos')->delete();
+        DB::table('modelos')->delete();
 
         Modelo::create(
     array('id' => '1','nombre' => 'Aveo','id_marca' => '1'));
