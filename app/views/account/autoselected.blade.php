@@ -19,7 +19,7 @@
 				<p class="lead"></p> 
 				<div class="container-fluid">
 					<div class="row">	
-						<div class="table-responsive"> 
+						<div class=""> 
 							<table class="table table-striped table-bordered">
 								<tr>
 									<th><b>Servicio</b></th>
@@ -35,10 +35,6 @@
 						</div>
 					</div>
  				</div>
- 				<div class="container-fluid col-xs-12 col-md-12 col-lg-12">
-					<div class="row">
-   						<a href="kilometraje.php"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
-   					</div>
-   				</div>
+   						<a href=""><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
 			@stop
 		@stop
