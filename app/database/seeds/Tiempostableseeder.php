@@ -9,7 +9,7 @@ class Tiempostableseeder extends Seeder {
         Tiempo::create(
 	    	array(
 	    		'kms'=> '5000',
-	    		'periodo'=>'3'
+	    		'periodo'=>'90'
 	    	)
 
         );
@@ -17,7 +17,7 @@ class Tiempostableseeder extends Seeder {
         Tiempo::create(
 	    	array(
 	    		'kms'=> '10000',
-	    		'periodo'=>'6'
+	    		'periodo'=>'180'
 	    	)
 
         );
@@ -25,7 +25,7 @@ class Tiempostableseeder extends Seeder {
         Tiempo::create(
 	    	array(
 	    		'kms'=> '20000',
-	    		'periodo'=>'12'
+	    		'periodo'=>'365'
 	    	)
 
         );
@@ -33,7 +33,7 @@ class Tiempostableseeder extends Seeder {
         Tiempo::create(
 	    	array(
 	    		'kms'=> '50000',
-	    		'periodo'=>'36'
+	    		'periodo'=>'1080'
 	    	)
 
         );

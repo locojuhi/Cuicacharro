@@ -96,7 +96,6 @@ class UsuarioController extends BaseController {
 				return Redirect::route('index-get')->with('global','Te has registrado satisfactoriamente, Confirma en tu correo la llave de activacion ahora');
 			}
 		}
-		//print_r(Input::all());
 	}
 	public function getActivar($codigo){
 		/*Aqui se crea una variable instanciando el modelo y el metodo "where" para delimitar la busqueda de la base de datos a un usuario en especifico*/
@@ -117,7 +116,6 @@ class UsuarioController extends BaseController {
 	public function getUsuarioRecuperar(){
 		return View::make('account.usuariorecuperar');
 	}
-
 	public function postUsuarioRecuperar(){
 		$validator= Validator::make(Input::all(),
 			array(
@@ -152,7 +150,6 @@ class UsuarioController extends BaseController {
 	public function getCambiaClave(){
 		return View::make('account.cambiaclave');
 	}
-
 	public function postCambiaClave(){
 		//el primer parametro es el nombre en el campo del formulario.
 		$validator= Validator::make(Input::all(), array(

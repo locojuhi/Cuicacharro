@@ -3,7 +3,14 @@
 
 		@section('contenido')
 			@section('jumbomidle')
+				{{$servicios}} <br>
+				{{$id}}<br>
+				{{$km}}<br>
+				{{$fecha}}<br>
+				{{$tiempos}}<br>
 				
+				
+				<!--Esto es para hacer dinamico el proyecto y personalizar esta ventana con la placa del carro que se ha seleccionado.-->
    				@foreach ($id_auto as $auto)
 				    <h1>{{Str::upper($auto->placa)}}</h1>
 				@endforeach
@@ -12,7 +19,7 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-						<li><a href="">Agregar</a></li>
+						<li><a href="{{URL::route('agregar-servicio')}}">Agregar</a></li>
 					    <li><a href="">Historial</a></li>
 					</ul>
 				</div>

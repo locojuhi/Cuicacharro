@@ -64,6 +64,12 @@ Route::group(array('before' => 'auth'), function(){
 					'as'=>'seleccion-carro',
 					'uses'=>'AutoController@getAutoSelected'
 				)
+			);
+			Route::get('/dashboard/auto/selected/{id}/servicio',
+			array(
+				'as'=>'agregar-servicio',
+				'uses'=>'AutoController@getServicioAgregar'
+				)
 			);	
 		});		
 //Grupo no identificado
