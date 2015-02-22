@@ -20,6 +20,12 @@ Route::group(array('before' => 'auth'), function(){
 			'uses'=>'UsuarioController@postCambiaClave'
 				)
 			);
+		Route::post('dashboard/auto/servicio/agregar',
+			array(
+				'as'=>'agregar-servicio',
+				'uses'=>'AutoController@postAgregarServicio'
+				)
+			);
 		});
 			Route::get('/dashboard', 
 				array(

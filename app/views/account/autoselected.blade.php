@@ -3,11 +3,9 @@
 
 		@section('contenido')
 			@section('jumbomidle')
-				{{$servicios}} <br>
-				{{$id}}<br>
-				{{$km}}<br>
-				{{$fecha}}<br>
-				{{$tiempos}}<br>
+				{{$id_km}} <br>
+				{{$id_servicio}}<br>
+				
 				
 				
 				<!--Esto es para hacer dinamico el proyecto y personalizar esta ventana con la placa del carro que se ha seleccionado.-->

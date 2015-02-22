@@ -23,7 +23,7 @@ class AutoController extends BaseController {
 			$idKm=$servicio->id_kilometraje;
 		}
 		//Servicio
-		$service = Servicio::where('id','=',$idServicio)
+		/*$service = Servicio::where('id','=',$idServicio)
 				->get(array('nombre','tiempo_id'));
 		//Foreach para separar los elementos de los servicios
 			$servic=null;
@@ -46,15 +46,10 @@ class AutoController extends BaseController {
 				$kmd=$kms->kilometro;
 				$fecha=$kms->created_at;
 			}
-
+*/
 		//Compartiendo la variable con la vista.
-		View::share('tiempos', $tiempo);
-		View::share('servicios', $servic);
-		View::share('id', $id);
-		View::share('km', $kmd);
-		View::share('fecha', $fecha);
-
-
+		View::share('id_servicio', $idServicio);
+		View::share('id_km', $idKm);
 		return View::make('account.autoselected');
 	}
 	//Esto abre la vista para añadir un auto a la lista.
@@ -67,6 +62,28 @@ class AutoController extends BaseController {
 	public function getServicioAgregar(){
 		return View::make('account.agregaservice');
 		
+	}
+	//post para añadir un servicio nuevo a un automovil
+	public function postAgregarServicio($id){
+		$validador= Validator::make(Input::all(),
+			array(
+				'servicio'		=>'required'
+				'fecha'			=>'required'
+				'kilometraje'	=>'required'
+				)
+			);
+		if($validador->fais()){
+			return Redirect::route('agregar-servicio')
+					->withErrors($validador)
+					->witInput();
+					print_r($validador);
+		}else{
+			$id_auto		=	$id;
+			$servicio 		=	'servicio';
+			$fecha			=	'fecha';
+			$kilometraje 	=	'kilometraje';
+		}
+
 	}
 	//para crear un auto nuevo en cada cuenta de usuario.
 	public function postCrear(){
