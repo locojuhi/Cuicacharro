@@ -51,6 +51,12 @@ Route::group(array('before' => 'auth'), function(){
 				'uses'=>'AutoController@postCrear'
 				)
 			);
+			route::post('/dashboard/auto/borrar',
+				array(
+					'as'=>'eliminar_auto',
+					'uses'=>'AutoController@postEliminarAuto'
+				)
+			);
 			//password change
 			Route::get('/usuario/contraseña',
 				array(
@@ -132,8 +138,5 @@ Route::group(array('before'=>'guest'), function(){
 		'uses'=>'UsuarioController@getActivar'
 
 	));
-	Route::get('/hola/{nombre}', function($nombre){
-		return $nombre;
-	});
 });
 

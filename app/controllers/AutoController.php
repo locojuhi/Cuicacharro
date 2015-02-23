@@ -1,5 +1,21 @@
 <?php
 class AutoController extends BaseController {
+
+	public function postEliminarAuto(){
+		$id_auto = Input::get('id_auto');
+		$x = Auto::find($id_auto);
+		$kilometraje = Kilometraje::where('id_auto', '=', $id_auto)->lists('id');
+		$serv = Servrealizado::where('id_auto', '=', $id_auto)->lists('id');
+		if($x){
+			if($serv){
+		Servrealizado::destroy($serv);	
+			}
+		Kilometraje::destroy($kilometraje);
+		$x->delete();
+		return Redirect::route('principal')
+		->with('global', 'Se ha eliminado el auto de la lista satisfactoriamente');
+		}
+	}
 	//Este es para entrar en la ventana principal del usuario
 	public function mainpanel(){
 		View::share('auto', Auto::where('id_usuario','=', Auth::user()->id)->get(array('placa','id')));
@@ -48,6 +64,7 @@ class AutoController extends BaseController {
 			}
 */
 		//Compartiendo la variable con la vista.
+		View::share('id_carro', $id);
 		View::share('id_servicio', $idServicio);
 		View::share('id_km', $idKm);
 		return View::make('account.autoselected');
@@ -66,6 +83,24 @@ class AutoController extends BaseController {
 	//para abrir el formulario para agregar un nuevo kilometraje
 	public function getKilometrajeAgregar(){
 		return View::make('account.agregarkilometro');
+	}
+	public function postKilometrajeAgregar(){
+		$validador = Validator::make(Input::all(),
+			array(
+				'kilometraje'=>'required',
+				'fecha'=>'required'
+			)
+		);
+		if($validador->fais()){
+			return Redirect::route('agregar-kilometraje')
+					->withErrors($validador)
+					->witInput();
+					print_r($validador);
+		}else{
+			$id_auto =$id;
+			$kilometraje = Input::get('kilometraje');
+			$fecha = Input::get('fecha');
+		}
 	}
 	//post para añadir un servicio nuevo a un automovil
 	public function postAgregarServicio($id){
@@ -94,9 +129,9 @@ class AutoController extends BaseController {
 		//Reglas para validar.
 		$validador = Validator::make(Input::all(),
 			array(
-				'placa'=>'required',
+				'placa'=>'required|min:3',
 				'modelo'=>'required',
-				'kilometraje'=>'required'
+				'kilometraje'=>'required|numeric|min:1'
 			)
 		);
 		//Si falla en las reglas, redirecciona de nuevo al formulario
