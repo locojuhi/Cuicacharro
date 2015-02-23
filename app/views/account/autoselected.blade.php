@@ -40,6 +40,6 @@
 						</div>
 					</div>
  				</div>
-   						<a href=""><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
+   						<a href="{{URL::route('agregar-kilometraje')}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
 			@stop
 		@stop

@@ -63,12 +63,16 @@ class AutoController extends BaseController {
 		return View::make('account.agregaservice');
 		
 	}
+	//para abrir el formulario para agregar un nuevo kilometraje
+	public function getKilometrajeAgregar(){
+		return View::make('account.agregarkilometro');
+	}
 	//post para añadir un servicio nuevo a un automovil
 	public function postAgregarServicio($id){
 		$validador= Validator::make(Input::all(),
 			array(
-				'servicio'		=>'required'
-				'fecha'			=>'required'
+				'servicio'		=>'required',
+				'fecha'			=>'required',
 				'kilometraje'	=>'required'
 				)
 			);

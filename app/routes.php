@@ -76,6 +76,12 @@ Route::group(array('before' => 'auth'), function(){
 				'as'=>'agregar-servicio',
 				'uses'=>'AutoController@getServicioAgregar'
 				)
+			);
+			Route::get('dashboard/auto/selected/{id}/kilometraje',
+				array(
+					'as'=>'agregar-kilometraje',
+					'uses'=>'AutoController@getKilometrajeAgregar'
+				)
 			);	
 		});		
 //Grupo no identificado
