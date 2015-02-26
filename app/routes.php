@@ -79,7 +79,7 @@ Route::group(array('before' => 'auth'), function(){
 			);
 			Route::get('/dashboard/auto/selected/{id}/servicio',
 			array(
-				'as'=>'agregar-servicio',
+				'as'=>'agregar-servicio-get',
 				'uses'=>'AutoController@getServicioAgregar'
 				)
 			);
