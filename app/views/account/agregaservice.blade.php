@@ -3,6 +3,8 @@
 
 		@section('contenido')
 			@section('jumbomidle')
+			{{$id_carro}} <br>
+			{{$id_usuario}}
 				<h3>Agrega el servicio realizado al auto</h3>
 				<form role="form" method="POST" action="">
 					<div class="form-group">

@@ -77,13 +77,13 @@ Route::group(array('before' => 'auth'), function(){
 					'uses'=>'AutoController@getAutoSelected'
 				)
 			);
-			Route::get('/dashboard/auto/selected/{id}/servicio',
+			Route::get('/dashboard/auto/selected/servicio/{id}',
 			array(
 				'as'=>'agregar-servicio-get',
 				'uses'=>'AutoController@getServicioAgregar'
 				)
 			);
-			Route::get('dashboard/auto/selected/{id}/kilometraje',
+			Route::get('dashboard/auto/selected/kilometraje/{id}',
 				array(
 					'as'=>'agregar-kilometraje',
 					'uses'=>'AutoController@getKilometrajeAgregar'

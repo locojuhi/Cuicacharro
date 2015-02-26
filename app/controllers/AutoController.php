@@ -76,7 +76,11 @@ class AutoController extends BaseController {
 		View::share('marcas', Marca::get(array('nombre','id')));
 		return View::make('account.auto');
 	}
-	public function getServicioAgregar(){
+	public function getServicioAgregar($id){
+		$id_usuario = Auth::user()->id;
+		View::share('id_usuario',$id_usuario);
+		View::share('id_carro', $id);
+
 		return View::make('account.agregaservice');
 		
 	}

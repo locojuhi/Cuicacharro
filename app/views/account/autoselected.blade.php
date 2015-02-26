@@ -20,8 +20,7 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							
-								<li><a href="/dashboard/auto/selected/{{$id_carro}}/servicio">Agregar</a></li>
+								<li><a href="servicio/{{$id_carro}}" class="btn btn-block btn-default"><b>Agregar</b></a></li>
 							    <li><a href="">Historial</a></li>
 							</ul>
 						</div>
