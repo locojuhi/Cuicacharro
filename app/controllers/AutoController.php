@@ -105,14 +105,15 @@ class AutoController extends BaseController {
 
 
 		if($idauto==$id && $idusuario==Auth::user()->id){
+			View::share('id_auto',$id);
 		return View::make('account.agregarkilometro');
 		}else{return 'este auto no te pertenece.';}
 	}
-	public function postKilometrajeAgregar(){
+	public function postAgregarKilometraje(){
 		$validador = Validator::make(Input::all(),
 			array(
 				'kilometraje'=>'required',
-				'fecha'=>'required'
+				'fecha'=>'required|date'
 			)
 		);
 		if($validador->fais()){
@@ -121,9 +122,19 @@ class AutoController extends BaseController {
 					->witInput();
 					print_r($validador);
 		}else{
-			$id_auto =$id;
+			$id_auto = Input::get('id_auto');
 			$kilometraje = Input::get('kilometraje');
 			$fecha = Input::get('fecha');
+			$kilometrajecrear = Kilometraje::create(array(
+				'id_auto'	=>	$id_auto,
+				'kilometro'=> $kilometraje,
+				'created_at'=> $fecha
+				)
+			);
+			if($kilometrajecrear){
+				return Redirect::route('dashboard/auto/selected/kilometraje/{id}')
+						->with('global', 'kilometraje agregado con exito');
+			}
 		}
 	}
 	//post para añadir un servicio nuevo a un automovil
@@ -167,6 +178,7 @@ class AutoController extends BaseController {
 				print_r($validador);
 		//de lo contrario, pasara a introducir los valores en la base de datos.
 		}else{
+			
 			$usuario 		=	Auth::id();
 			$placa			=	Input::get('placa');
 			$marca 			=	Input::get('marca');
@@ -190,7 +202,8 @@ class AutoController extends BaseController {
 					}		
 				Kilometraje::create(array(
 					'id_auto'=> $auto,
-					'kilometro'=>$kilometraje
+					'kilometro'=>$kilometraje,
+					
 					)
 				);
 				return Redirect::route('principal');

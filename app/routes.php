@@ -26,6 +26,12 @@ Route::group(array('before' => 'auth'), function(){
 				'uses'=>'AutoController@postAgregarServicio'
 				)
 			);
+		Route::post('dashboard/auto/kilometraje/agregar',
+			array(
+				'as'=>'agregar-kilometraje-post',
+				'uses'=>'AutoController@postAgregarKilometraje'
+				)
+			);
 		});
 			Route::get('/dashboard', 
 				array(

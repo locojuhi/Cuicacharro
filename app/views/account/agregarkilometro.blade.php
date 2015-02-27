@@ -6,6 +6,7 @@
 				<form role="form" method="POST" action="">
 					<div class="form-group">
 						<label for="kilometrade">Kilometraje</label>
+						<input type="hidden" name="id_auto" value="{{$id_auto}}">
 						<input type="text" class="form-control" id="kilometraje" placeholder="kilometraje..." name="kilometraje" {{ (Input::old('kilometraje')) ? 'value="'. e(Input::old('kilometraje')) .'"':''}}>
 						@if($errors->has('kilometraje'))
 							{{$errors->first('kilometraje')}}
