@@ -19,9 +19,9 @@
 							<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-info btn-lg btn-block"> <b>Servicios</b>
 								<span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<ul class="dropdown-menu" role="menu">
 								<li><a href="servicio/{{$id_carro}}" class="btn btn-block btn-default"><b>Agregar</b></a></li>
-							    <li><a href="">Historial</a></li>
+							    <li><a href="" class="btn btn-block btn-default"><b>Historial</b></a></li>
 							</ul>
 						</div>
 					</div>
@@ -52,6 +52,6 @@
 						</div>
 					</div>
  				</div>
-   						<a href="{{URL::route('agregar-kilometraje')}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
+   						<a href="kilometraje/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
 			@stop
 		@stop

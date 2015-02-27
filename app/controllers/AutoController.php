@@ -77,16 +77,36 @@ class AutoController extends BaseController {
 		return View::make('account.auto');
 	}
 	public function getServicioAgregar($id){
-		$id_usuario = Auth::user()->id;
-		View::share('id_usuario',$id_usuario);
-		View::share('id_carro', $id);
+		$validador=Auto::where('id','=',$id)->where('id_usuario','=', Auth::user()->id)->get(array('id','id_usuario'));
+		$idauto=null;
+		$idusuario=null;
+		foreach($validador as $auto)
+					{
+					   $idauto=$auto['id'];
+					    $idusuario=$auto['id_usuario'];
+					}
 
+
+		if($idauto==$id && $idusuario==Auth::user()->id){
 		return View::make('account.agregaservice');
-		
+		}else{return 'este auto no te pertenece.';}
+			
 	}
 	//para abrir el formulario para agregar un nuevo kilometraje
-	public function getKilometrajeAgregar(){
+	public function getKilometrajeAgregar($id){
+		$validador=Auto::where('id','=',$id)->where('id_usuario','=', Auth::user()->id)->get(array('id','id_usuario'));
+		$idauto=null;
+		$idusuario=null;
+		foreach($validador as $auto)
+					{
+					   $idauto=$auto['id'];
+					    $idusuario=$auto['id_usuario'];
+					}
+
+
+		if($idauto==$id && $idusuario==Auth::user()->id){
 		return View::make('account.agregarkilometro');
+		}else{return 'este auto no te pertenece.';}
 	}
 	public function postKilometrajeAgregar(){
 		$validador = Validator::make(Input::all(),
