@@ -2,13 +2,7 @@
 @extends('layouts.jumbotron')
 
 		@section('contenido')
-			@section('jumbomidle')
-				id kilometro:{{$id_km}} <br>
-				id servicio : {{$id_servicio}}<br>
-				id auto:{{$id_carro}}
-				
-				
-				
+			@section('jumbomidle')				
 				<!--Esto es para hacer dinamico el proyecto y personalizar esta ventana con la placa del carro que se ha seleccionado.-->
    				@foreach ($id_auto as $auto)
 				    <h1>{{Str::upper($auto->placa)}}</h1>

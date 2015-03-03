@@ -3,7 +3,7 @@
 	@section('contenido')
 			@section('jumbomidle')
 			<h3>Agrega el kilometraje actual del vehiculo</h3>
-				<form role="form" method="POST" action="">
+				<form role="form" method="POST" action="{{URL::route('agregar-kilometraje-post')}}">
 					<div class="form-group">
 						<label for="kilometrade">Kilometraje</label>
 						<input type="hidden" name="id_auto" value="{{$id_auto}}">

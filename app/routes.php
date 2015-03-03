@@ -33,25 +33,25 @@ Route::group(array('before' => 'auth'), function(){
 				)
 			);
 		});
-			Route::get('/dashboard', 
+			Route::get('/dashboard',
 				array(
 				'as'=>'principal',
 				'uses'=>'AutoController@mainpanel'
 				)
 			);
-			Route::get('/dashboard/cerrar', 
+			Route::get('/dashboard/cerrar',
 				array(
 				'as'=>'cerrar-sesion',
 				'uses'=>'UsuarioController@getCerrar'
 				)
 			);
-			Route::get('/dashboard/auto/crear', 
+			Route::get('/dashboard/auto/crear',
 				array(
 				'as'=>'crear-auto',
 				'uses'=>'AutoController@getCrear'
-				)		
+				)
 			);
-			Route::post('/dashboard/auto/creado', 
+			Route::post('/dashboard/auto/creado',
 				array(
 				'as'=>'crear-auto-post',
 				'uses'=>'AutoController@postCrear'
@@ -94,8 +94,8 @@ Route::group(array('before' => 'auth'), function(){
 					'as'=>'agregar-kilometraje',
 					'uses'=>'AutoController@getKilometrajeAgregar'
 				)
-			);	
-		});		
+			);
+		});
 //Grupo no identificado
 Route::group(array('before'=>'guest'), function(){
 	//Protecion del grupo CSRF
@@ -126,7 +126,7 @@ Route::group(array('before'=>'guest'), function(){
 			'as'=>'usuario-recuperar-codigo',
 			'uses'=>'UsuarioController@getRecover'
 		));
-	
+
 		//Loguear get
 		Route::get('/', array(
 			'as'=>'index-get',

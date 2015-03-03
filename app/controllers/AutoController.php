@@ -116,7 +116,7 @@ class AutoController extends BaseController {
 				'fecha'=>'required|date'
 			)
 		);
-		if($validador->fais()){
+		if($validador->fails()){
 			return Redirect::route('agregar-kilometraje')
 					->withErrors($validador)
 					->witInput();
@@ -131,10 +131,7 @@ class AutoController extends BaseController {
 				'created_at'=> $fecha
 				)
 			);
-			if($kilometrajecrear){
-				return Redirect::route('dashboard/auto/selected/kilometraje/{id}')
-						->with('global', 'kilometraje agregado con exito');
-			}
+			return array($fecha, $kilometraje, $id_auto);
 		}
 	}
 	//post para añadir un servicio nuevo a un automovil
