@@ -109,6 +109,11 @@ class AutoController extends BaseController {
 		return View::make('account.agregarkilometro');
 		}else{return 'este auto no te pertenece.';}
 	}
+	//Agregar kilometraje para ese dias
+	public function getAgregakm(){
+
+	}
+	//Agrega un kilometraje de cualquier fecha
 	public function postAgregarKilometraje(){
 		$validador = Validator::make(Input::all(),
 			array(

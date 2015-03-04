@@ -33,43 +33,50 @@ Route::group(array('before' => 'auth'), function(){
 				)
 			);
 		});
+			//Pagina principal despues de loguear
 			Route::get('/dashboard',
 				array(
 				'as'=>'principal',
 				'uses'=>'AutoController@mainpanel'
 				)
 			);
+			//Cerrar sesion
 			Route::get('/dashboard/cerrar',
 				array(
 				'as'=>'cerrar-sesion',
 				'uses'=>'UsuarioController@getCerrar'
 				)
 			);
+			//Regustro d eun vehiculo
 			Route::get('/dashboard/auto/crear',
 				array(
 				'as'=>'crear-auto',
 				'uses'=>'AutoController@getCrear'
 				)
 			);
+			//cuando se ha creado el auto...
 			Route::post('/dashboard/auto/creado',
 				array(
 				'as'=>'crear-auto-post',
 				'uses'=>'AutoController@postCrear'
 				)
 			);
+			//Borrar el auto
 			route::post('/dashboard/auto/borrar',
 				array(
 					'as'=>'eliminar_auto',
 					'uses'=>'AutoController@postEliminarAuto'
 				)
 			);
-			//password change
+			//cambiar contraseña
 			Route::get('/usuario/contraseña',
 				array(
 			'as'=>'cambio-password',
 			'uses'=>'UsuarioController@getCambiaClave'
 				)
 			);
+			//para solicitar por comunicando con script.
+			//los modelos por marca
 			Route::get('/dashboard/auto/modelo',
 				array(
 					'as'=>'seleccione-modelo',
@@ -83,12 +90,14 @@ Route::group(array('before' => 'auth'), function(){
 					'uses'=>'AutoController@getAutoSelected'
 				)
 			);
+			//para agregar los servicios a un automovil
 			Route::get('/dashboard/auto/selected/servicio/{id}',
 			array(
 				'as'=>'agregar-servicio-get',
 				'uses'=>'AutoController@getServicioAgregar'
 				)
 			);
+			//Agregar un kilometraje
 			Route::get('dashboard/auto/selected/kilometraje/{id}',
 				array(
 					'as'=>'agregar-kilometraje',
