@@ -46,6 +46,6 @@
 						</div>
 					</div>
  				</div>
-   						<a href="kilometraje/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
+   						<a href="kilometraje-actual/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
 			@stop
 		@stop

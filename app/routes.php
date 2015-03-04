@@ -32,6 +32,12 @@ Route::group(array('before' => 'auth'), function(){
 				'uses'=>'AutoController@postAgregarKilometraje'
 				)
 			);
+		Route::post('dashboard/auto/kilometraje-actual/agregar',
+			array(
+				'as'=>'agregar-kilometraje-actual-post',
+				'uses'=>'AutoController@postAgregarKilometrajeatual'
+				)
+			);
 		});
 			//Pagina principal despues de loguear
 			Route::get('/dashboard',
@@ -47,7 +53,7 @@ Route::group(array('before' => 'auth'), function(){
 				'uses'=>'UsuarioController@getCerrar'
 				)
 			);
-			//Regustro d eun vehiculo
+			//Registro de un vehiculo
 			Route::get('/dashboard/auto/crear',
 				array(
 				'as'=>'crear-auto',
@@ -104,6 +110,13 @@ Route::group(array('before' => 'auth'), function(){
 					'uses'=>'AutoController@getKilometrajeAgregar'
 				)
 			);
+			//Agregar kilometraje actual
+			Route::get('dashboard/auto/selected/kilometraje-actual/{id}',
+				array(
+					'as'=>'agregar-kilometraje-actual',
+					'uses'=>'AutoController@getAgregakm'
+				)
+			);
 		});
 //Grupo no identificado
 Route::group(array('before'=>'guest'), function(){
@@ -115,11 +128,12 @@ Route::group(array('before'=>'guest'), function(){
 		'uses'=>'UsuarioController@postCreate'
 
 		));
+		//post para loguear
 		Route::post('/inicio', array(
 			'as'=>'login-post',
 			'uses'=>'UsuarioController@postLoguear'
 		));
-
+		//post para enviar mensaje de recuperar contraseña
 		Route::post('/usuario/recuperar', array(
 			'as'=>'usuario-recuperar-password-post',
 			'uses'=>'UsuarioController@postUsuarioRecuperar'
@@ -130,7 +144,7 @@ Route::group(array('before'=>'guest'), function(){
 			'as'=>'usuario-recuperar-password',
 			'uses'=>'UsuarioController@getUsuarioRecuperar'
 		));
-
+		//validar codigo de recuperar para cuentas
 		Route::get('/usuario/recuperar/{codigo}', array(
 			'as'=>'usuario-recuperar-codigo',
 			'uses'=>'UsuarioController@getRecover'
@@ -147,7 +161,7 @@ Route::group(array('before'=>'guest'), function(){
 		'uses'=>'UsuarioController@getCreate'
 
 	));
-
+	//ruta para validar el codigo para actvar cuenta
 	Route::get('/usuario/activar/{codigo}',array(
 		'as'=>'usuario-activar',
 		'uses'=>'UsuarioController@getActivar'
