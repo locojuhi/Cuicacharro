@@ -7,7 +7,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Kilometraje extends Eloquent implements UserInterface, RemindableInterface {
 
-	protected $fillable	=	array('id_auto','kilometro');
+	protected $fillable	=	array('id_auto','kilometro', 'fecha');
 	use UserTrait, RemindableTrait;
 
 	/**

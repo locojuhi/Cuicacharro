@@ -22,7 +22,7 @@ Route::group(array('before' => 'auth'), function(){
 			);
 		Route::post('dashboard/auto/servicio/agregar',
 			array(
-				'as'=>'agregar-servicio',
+				'as'=>'agregar-servicio-post',
 				'uses'=>'AutoController@postAgregarServicio'
 				)
 			);

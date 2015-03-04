@@ -3,15 +3,23 @@
 
 		@section('contenido')
 			@section('jumbomidle')
-			
+			{{var_dump($servicios)}}
 				<h3>Agrega el servicio realizado al auto</h3>
-				<form role="form" method="POST" action="">
+				<form role="form" method="POST" action="{{URL::route('agregar-servicio-post')}}">
 					<div class="form-group">
 						<label for="nick">Servicio</label>
-						<input type="text" class="form-control" id="servicio" placeholder="servicio..." name="servicio" {{ (Input::old('servicio')) ? 'value="'. e(Input::old('servicio')) .'"':''}}>
-						@if($errors->has('servicio'))
-							{{$errors->first('servicio')}}
-						@endif
+						<input type ="hidden" name="id_auto" value="{{$id_auto}}">
+						<select class="form-control" id="servicio" name="servicio" placeholder="Selecciona servicio"{{ (Input::old('servicio')) ? 'value="'. e(Input::old('servicio')) .'"':''}}>
+								@if($errors->has('servicio'))
+									{{$errors->first('servicio')}}
+								@endif
+						<?php 
+   								echo "<option>Seleccione una opción...</option>";
+								foreach ($servicios as $key => $servicio) {
+									echo "<option value =".$servicio['id'].">".$servicio['nombre']."</option>";
+								}
+							?>
+						</select>
 					</div>
 					<div class="form-group">
 						<label for="fecha">Fecha:</label>

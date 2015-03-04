@@ -52,6 +52,7 @@ class UsuarioController extends BaseController {
 	public function getCreate(){
 		return View::make('account.crear');
 	}
+	//Post para registrar un usuario
 	public function postCreate(){
 		$validador = Validator::make(Input::all(),
 			array(
@@ -97,6 +98,7 @@ class UsuarioController extends BaseController {
 			}
 		}
 	}
+	//Activar la cuenta de usuario
 	public function getActivar($codigo){
 		/*Aqui se crea una variable instanciando el modelo y el metodo "where" para delimitar la busqueda de la base de datos a un usuario en especifico*/
 		$uservalid = Usuario::where('codigo','=',$codigo)->where('status','=',0);
@@ -113,9 +115,11 @@ class UsuarioController extends BaseController {
 		return Redirect::route('index-get')
 		->with('global','No se pudo activar tu cuenta, por favor intentelo mas tarde...');
 	}
+	//recuperar cuenta de usuario
 	public function getUsuarioRecuperar(){
 		return View::make('account.usuariorecuperar');
 	}
+	//post para enviar el correo de recuperacion
 	public function postUsuarioRecuperar(){
 		$validator= Validator::make(Input::all(),
 			array(
@@ -175,6 +179,7 @@ class UsuarioController extends BaseController {
 		return Redirect::route('cambio-password')
 				->with('global','No se pudo cambiar tu contraseña en este momento, intentalo mas tarde');
 	}
+	//url para validar el codigo para loguear
 	public function getRecover($codigo){
 		$usuario= Usuario::where('codigo', '=', $codigo)
 		->where('contraseña_temp','!=', '');
