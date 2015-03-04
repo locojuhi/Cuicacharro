@@ -3,7 +3,7 @@
 
 		@section('contenido')
 			@section('jumbomidle')
-			{{var_dump($servicios)}}
+			{{print_r($servicios)}}
 				<h3>Agrega el servicio realizado al auto</h3>
 				<form role="form" method="POST" action="{{URL::route('agregar-servicio-post')}}">
 					<div class="form-group">
@@ -16,7 +16,7 @@
 						<?php 
    								echo "<option>Seleccione una opción...</option>";
 								foreach ($servicios as $key => $servicio) {
-									echo "<option value =".$servicio['id'].">".$servicio['nombre']."</option>";
+									echo "<option value =".$servicio.">".$key."</option>";
 								}
 							?>
 						</select>
