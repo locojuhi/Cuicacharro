@@ -9,7 +9,7 @@
 					<div class="form-group">
 						<label for="nick">Servicio</label>
 						<input type ="hidden" name="id_auto" value="{{$id_auto}}">
-						<select class="form-control" id="servicio" name="servicio" placeholder="Selecciona servicio"{{ (Input::old('servicio')) ? 'value="'. e(Input::old('servicio')) .'"':''}}>
+						<select class="form-control" id="servicio" name="id" placeholder="Selecciona servicio"{{ (Input::old('servicio')) ? 'value="'. e(Input::old('servicio')) .'"':''}}>
 								@if($errors->has('servicio'))
 									{{$errors->first('servicio')}}
 								@endif

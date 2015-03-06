@@ -98,10 +98,9 @@ class AutoController extends BaseController {
 		$id_auto=Input::get('id_auto');
 		$validador = Validator::make(Input::all(),
 			array(
-				'servicio'=>'required|exists',
+				'id'=>'required|exists:servicios',
 				'kilometraje'=>'required',
 				'fecha'=>'required|date'
-
 				)
 			);
 		if($validador->fails()){
@@ -109,9 +108,39 @@ class AutoController extends BaseController {
 					->withErrors($validador);
 					print_r($validator);
 		}else{
+			$id_servicio = Input::get('id');
 			$id_auto = Input::get('id_auto');
 			$kilometraje = Input::get('kilometraje');
 			$fecha = Input::get('fecha');
+			$kilometrajecreate = Kilometraje::create(
+				array(
+					'id_auto'=>$id_auto,
+					'kilometro'=>$kilometraje,
+					'fecha'=>$fecha
+					)
+				);
+			if($kilometrajecreate){
+				$x=DB::table('kilometrajes')
+					->where('id_auto','=',$id_auto)
+					->orderBy('id','desc')
+					->pluck('id');
+				/*return Redirect::back()
+					->with('global','Servicio realizado con exito');*/
+				$servicioagrega = Servrealizado::create(
+					array(
+						'id_servicios'=>$id_servicio,
+						'id_auto'=>$id_auto,
+						'id_kilometraje'=>$x
+						)
+					);
+				if ($servicioagrega) {
+					return Redirect::back()
+					->with('global','Servicio agregado con exito!!!!');
+				}
+			}else{
+				return Redirect::back()
+					->with('global','No se pudo agregar el servicio');
+			}
 		}
 	}
 	//para abrir el formulario para agregar un nuevo kilometraje de cualquier fecha(No utilizado actualmente)
