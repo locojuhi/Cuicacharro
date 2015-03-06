@@ -7,6 +7,13 @@
    				@foreach ($id_auto as $auto)
 				    <h1>{{Str::upper($auto->placa)}}</h1>
 				@endforeach
+				@foreach ($kmactual as $km)
+					{{$km}}
+				@endforeach
+
+				<!--{{$serv_realizado}}-->
+				<a href="kilometraje-actual/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
+				<p class="lead"></p>
 				<div class="row">
 					<div class="col-xs-6 col-md-6 col-lg-6">	
 		   				<div class="dropdown">
@@ -33,6 +40,9 @@
 						<div class=""> 
 							<table class="table table-striped table-bordered">
 								<tr>
+									<caption>Proximos Servicios</caption>
+								</tr>
+								<tr>
 									<th><b>Servicio</b></th>
 									<th><b>Fecha</b></th>
 									<th><b>Kilometraje</b></th>
@@ -46,6 +56,6 @@
 						</div>
 					</div>
  				</div>
-   						<a href="kilometraje-actual/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
+   						
 			@stop
 		@stop

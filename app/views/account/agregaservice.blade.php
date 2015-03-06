@@ -3,7 +3,6 @@
 
 		@section('contenido')
 			@section('jumbomidle')
-			{{print_r($servicios)}}
 				<h3>Agrega el servicio realizado al auto</h3>
 				<form role="form" method="POST" action="{{URL::route('agregar-servicio-post')}}">
 					<div class="form-group">
@@ -35,8 +34,6 @@
 								{{$errors->first('kilometraje')}}
 							@endif
 					</div>
-						
-
 						<button type="submit" class="btn btn-info btn-md">Enviar</button>
 						{{Form::token()}}
 				</form>

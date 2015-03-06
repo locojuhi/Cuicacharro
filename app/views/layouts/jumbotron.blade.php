@@ -13,8 +13,6 @@
 									@yield('jumbomidle')
 
 								</div>
-
-								<div class="col-xs-4 col-md-3 col-lg-3"></div>
 							</div>
 						</div>
 					</div>

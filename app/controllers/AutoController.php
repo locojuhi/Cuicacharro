@@ -28,45 +28,16 @@ class AutoController extends BaseController {
 					->get(array('placa')));
 		/*Equivalente a:
 		Select id_serviciso, id_auto, id_kilometraje form ser_realizados.*/
+		$kilometrajeactual = Kilometraje::where('id_auto','=',$id)
+										->orderBy('kilometro', 'desc')
+										->get(array('kilometro'))
+										->first();
 		$serviciosrea = Servrealizado::where('id_auto','=', $id)
 					->get(array('id_servicios', 'id_kilometraje'));
-		//Inicializo las variables para el forEach
-		$idServicio=null;
-		$idKm=null;
-		//inicio el forEach para extraer los valores del arreglo de datos.
-		foreach ($serviciosrea as $servicio) {
-			$idServicio=$servicio->id_servicios;
-			$idKm=$servicio->id_kilometraje;
-		}
-		//Servicio
-		/*$service = Servicio::where('id','=',$idServicio)
-				->get(array('nombre','tiempo_id'));
-		//Foreach para separar los elementos de los servicios
-			$servic=null;
-			$tempo=null;
-			foreach ($service as $serv) {
-				$servic=$serv->nombre;
-				$tempo=$serv->tiempo_id;
-			}
-		//tiempo que debe transcurrir antes de volver a hacer el servicio
-		$tiempo=Tiempo::where('id','=',$tempo)
-				->get(array('periodo'));
-		//auto
-		$id;
-		//kilometraje
-		$km = Kilometraje::where('id','=',$idKm)
-			->get(array('kilometro','created_at'));
-			$kmd=null;
-			$fecha=null;
-			foreach ($km as $kms) {	
-				$kmd=$kms->kilometro;
-				$fecha=$kms->created_at;
-			}
-*/
 		//Compartiendo la variable con la vista.
+		View::share('kmactual', $kilometrajeactual);
+		View::share('serv_realizado', $serviciosrea);
 		View::share('id_carro', $id);
-		View::share('id_servicio', $idServicio);
-		View::share('id_km', $idKm);
 		return View::make('account.autoselected');
 	}
 	//Esto abre la vista para añadir un auto a la lista.
@@ -99,7 +70,7 @@ class AutoController extends BaseController {
 		$validador = Validator::make(Input::all(),
 			array(
 				'id'=>'required|exists:servicios',
-				'kilometraje'=>'required',
+				'kilometraje'=>'required|numeric',
 				'fecha'=>'required|date'
 				)
 			);
@@ -182,7 +153,7 @@ class AutoController extends BaseController {
 		$id_auto=Input::get('id_auto');
 		$validador = Validator::make(Input::all(),
 			array(
-				'kilometraje'=>'required'
+				'kilometraje'=>'required|numeric'
 				)
 			);
 		if($validador->fails()){
