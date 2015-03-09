@@ -22,18 +22,18 @@ class AutoController extends BaseController {
 		return View::make('mainpanel');	
 	}//Para seleccionar trabajar con un auto
 	public function getAutoSelected($id){
-		//Aqui se consulta a la placa que se ha seleccionado.
-		//Compartienedo la variable con la vista.
+		//Compartienedo la la placa.
 		View::share('id_auto', Auto::where('id','=', $id)
 					->get(array('placa')));
 		/*Equivalente a:
-		Select id_serviciso, id_auto, id_kilometraje form ser_realizados.*/
+		Select id_serviciso, id_auto, id_kilometraje form serv_realizados.*/
 		$kilometrajeactual = Kilometraje::where('id_auto','=',$id)
 										->orderBy('kilometro', 'desc')
 										->get(array('kilometro'))
 										->first();
+		
 		$serviciosrea = Servrealizado::where('id_auto','=', $id)
-					->get(array('id_servicios', 'id_kilometraje'));
+					->get(array('id','id_servicios', 'id_kilometraje'));
 		//Compartiendo la variable con la vista.
 		View::share('kmactual', $kilometrajeactual);
 		View::share('serv_realizado', $serviciosrea);
@@ -104,8 +104,86 @@ class AutoController extends BaseController {
 						'id_kilometraje'=>$x
 						)
 					);
-				if ($servicioagrega) {
-					return Redirect::back()
+				if ($servicioagrega){
+					$id_servicio_rea = Servrealizado::where('id_kilometraje','=', $x)
+													->get(array('id'));
+					$periodo=Servicio::where('id','=',$id_servicio)
+							->get(array('tiempo_id'));
+
+					switch ($periodo) {
+						case 1:
+							$kms=5000;
+							$kilometraje;
+							$fecha;
+							$nuevafecha = strtotime ( '+90 day' , strtotime ( $fecha ) ) ;
+							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+							Proximoserv::create(
+								array(
+									'id_servicio'=>$id_servicio_rea,
+									'kilometro'=>$kilometraje+$kms,
+									'fecha'=>$nuevafecha,
+									'status'=>'1'
+									)
+								);
+							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
+											->with('global','Servicio agregado con exito!!!!');
+							break;
+						
+						case 2:
+							$kms=10000;
+							$kilometraje;
+							$fecha;
+							$nuevafecha = strtotime ( '+180 day' , strtotime ( $fecha ) ) ;
+							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+							Proximoserv::create(
+								array(
+									'id_servicio'=>$id_servicio_rea,
+									'kilometro'=>$kilometraje+$kms,
+									'fecha'=>$nuevafecha,
+									'status'=>'1'
+									)
+								);
+							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
+											->with('global','Servicio agregado con exito!!!!');
+							break;
+
+						case 3:
+							$kms=20000;
+							$kilometraje;
+							$fecha;
+							$nuevafecha = strtotime ( '+365 day' , strtotime ( $fecha ) ) ;
+							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+							Proximoserv::create(
+								array(
+									'id_servicio'=>$id_servicio_rea,
+									'kilometro'=>$kilometraje+$kms,
+									'fecha'=>$nuevafecha,
+									'status'=>'1'
+									)
+								);
+							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
+											->with('global','Servicio agregado con exito!!!!');
+							break;
+
+						case 4:
+							$kms=50000;
+							$kilometraje;
+							$fecha;
+							$nuevafecha = strtotime ( '+1080 day' , strtotime ( $fecha ) ) ;
+							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+							Proximoserv::create(
+								array(
+									'id_servicio'=>$id_servicio_rea,
+									'kilometro'=>$kilometraje+$kms,
+									'fecha'=>$nuevafecha,
+									'status'=>'1'
+									)
+								);
+							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
+											->with('global','Servicio agregado con exito!!!!');
+							break;
+					}
+					return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 					->with('global','Servicio agregado con exito!!!!');
 				}
 			}else{
