@@ -107,10 +107,19 @@ class AutoController extends BaseController {
 				if ($servicioagrega){
 					$id_servicio_rea = Servrealizado::where('id_kilometraje','=', $x)
 													->get(array('id'));
+					$servicio_id=null;
+					foreach ($id_servicio_rea as $key) {
+						$servicio_id = $key->id;
+					}
+					
 					$periodo=Servicio::where('id','=',$id_servicio)
 							->get(array('tiempo_id'));
 
-					switch ($periodo) {
+					$periodo_id=null;
+					foreach ($periodo as $key) {
+						$periodo_id = $key->tiempo_id;
+					}
+					switch ($periodo_id) {
 						case 1:
 							$kms=5000;
 							$kilometraje;
@@ -119,7 +128,7 @@ class AutoController extends BaseController {
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
 							Proximoserv::create(
 								array(
-									'id_servicio'=>$id_servicio_rea,
+									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
 									'fecha'=>$nuevafecha,
 									'status'=>'1'
@@ -137,7 +146,7 @@ class AutoController extends BaseController {
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
 							Proximoserv::create(
 								array(
-									'id_servicio'=>$id_servicio_rea,
+									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
 									'fecha'=>$nuevafecha,
 									'status'=>'1'
@@ -153,14 +162,16 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+365 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximoserv::create(
+							/*Proximoserv::create(
 								array(
-									'id_servicio'=>$id_servicio_rea,
-									'kilometro'=>$kilometraje+$kms,
-									'fecha'=>$nuevafecha,
-									'status'=>'1'
+									'id_servicio' => $servicio_id,
+									'kilometro' => $kilometraje+$kms,
+									'fecha' => $nuevafecha,
+									'status' => '1'
 									)
-								);
+								);*/
+
+							return Proximoserv::all();
 							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 											->with('global','Servicio agregado con exito!!!!');
 							break;
@@ -173,7 +184,7 @@ class AutoController extends BaseController {
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
 							Proximoserv::create(
 								array(
-									'id_servicio'=>$id_servicio_rea,
+									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
 									'fecha'=>$nuevafecha,
 									'status'=>'1'
