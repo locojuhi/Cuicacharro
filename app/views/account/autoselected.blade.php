@@ -13,7 +13,6 @@
 						</tr>
 					<tr><td>
 					<h3>{{Str::upper($kmactual->kilometro)}} Kms</h3>
-					{{$serv_realizado}}
 					
 				</div>
 				<!--{{$serv_realizado}}-->

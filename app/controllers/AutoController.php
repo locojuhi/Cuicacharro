@@ -21,10 +21,7 @@ class AutoController extends BaseController {
 		View::share('auto', Auto::where('id_usuario','=', Auth::user()->id)->get(array('placa','id')));
 		return View::make('mainpanel');	
 	}//Para seleccionar trabajar con un auto
-	public function getAutoSelected($id){
-		//Compartienedo la la placa.
-		View::share('id_auto', Auto::where('id','=', $id)
-					->get(array('placa')));
+	public function getAutoSelected($id){		
 		/*Equivalente a:
 		Select id_serviciso, id_auto, id_kilometraje form serv_realizados.*/
 		$kilometrajeactual = Kilometraje::where('id_auto','=',$id)
@@ -33,8 +30,13 @@ class AutoController extends BaseController {
 										->first();
 		
 		$serviciosrea = Servrealizado::where('id_auto','=', $id)
-					->get(array('id','id_servicios', 'id_kilometraje'));
+					->get(array('id_servicios'));
+
+		
+
 		//Compartiendo la variable con la vista.
+		View::share('id_auto', Auto::where('id','=', $id)
+					->get(array('placa')));
 		View::share('kmactual', $kilometrajeactual);
 		View::share('serv_realizado', $serviciosrea);
 		View::share('id_carro', $id);
@@ -42,8 +44,7 @@ class AutoController extends BaseController {
 	}
 	//Esto abre la vista para añadir un auto a la lista.
 	public function getCrear(){
-		//Esto es equivalente a "Select nombre from marcas order by id"
-		//$marcas = DB::table('marcas')->lists('nombre', 'id');
+		//Esto es equivalente a "Select nombre, id from marcas order by id"
 		View::share('marcas', Marca::get(array('nombre','id')));
 		return View::make('account.auto');
 	}
@@ -126,7 +127,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+90 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximoserv::create(
+							Proximose::create(
 								array(
 									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
@@ -144,7 +145,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+180 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximoserv::create(
+							Proximose::create(
 								array(
 									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
@@ -162,16 +163,14 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+365 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							/*Proximoserv::create(
+							Proximose::create(
 								array(
 									'id_servicio' => $servicio_id,
 									'kilometro' => $kilometraje+$kms,
 									'fecha' => $nuevafecha,
 									'status' => '1'
 									)
-								);*/
-
-							return Proximoserv::all();
+								);
 							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 											->with('global','Servicio agregado con exito!!!!');
 							break;
@@ -182,7 +181,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+1080 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximoserv::create(
+							Proximose::create(
 								array(
 									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,

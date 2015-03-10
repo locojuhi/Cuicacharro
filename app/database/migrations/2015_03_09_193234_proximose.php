@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Proximoserv extends Migration {
+class Proximose extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class Proximoserv extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('proximoserv', function(Blueprint $table)
+		Schema::create('proximose', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('id_servicio')->unsigned();
