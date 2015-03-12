@@ -10,6 +10,9 @@
 </head>
 <body>
 	@if(Session::has('global'))
+
+		
+		
 		<div class="alert alert-success" role="alert">
 			{{Session::get('global')}}
 		</div>

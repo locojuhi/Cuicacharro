@@ -9,11 +9,10 @@
 	   				@foreach ($id_auto as $auto)
 					    <h1>{{Str::upper($auto->placa)}}</h1>
 					@endforeach
-						</td>
-						</tr>
-					<tr><td>
-					<h3>{{Str::upper($kmactual->kilometro)}} Kms</h3>
-					
+						<!--@foreach($id_serv_prox as $key)
+							
+							{{$key->nombre." | ".$key->kilometro." | ".$key->fecha." | ".$key->status."<br>"}}
+						@endforeach-->
 				</div>
 				<!--{{$serv_realizado}}-->
 				<a href="kilometraje-actual/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>
@@ -41,7 +40,7 @@
 				<p class="lead"></p> 
 				<div class="container-fluid">
 					<div class="row">	
-						<div class=""> 
+						<div class="table-responsive"> 
 							<table class="table table-striped table-bordered">
 								<tr>
 									<caption>Proximos Servicios</caption>
@@ -51,11 +50,61 @@
 									<th><b>Fecha</b></th>
 									<th><b>Kilometraje</b></th>
 								</tr>
-								<tr>
-									<td>elemento 3</td>
-									<td>fecha 3</td>
-									<td>kilometraje 3</td>
-								</tr>
+
+								<?php
+									echo "<h3>".Str::upper($kilometroac=$kmactual->kilometro)." Kms</h3>"; 
+									$servicio;
+									$kilometraje;
+									$fechas;
+									$status;
+									$fechaac= date('Y-m-d');
+									foreach ($id_serv_prox as $key) {
+										
+										$services=$key->nombre;
+										$kilometraje = $key->kilometro;
+										$fechas = $key->fecha;
+										$resultfec= (strtotime($fechas) - strtotime($fechaac))/86400;
+										$result = $kilometraje - $kilometroac;
+										switch ($result && $resultfec) {
+											case $result>=100 && $resultfec>=15:
+											echo "<tr class='success'>";
+											echo "<td>";
+												echo $services;
+											echo "</td>";
+											echo "<td>";
+												echo $resultfec;
+											echo "</td>";
+											echo "<td>";
+												echo $result;
+											echo "</td>";
+											break;
+											case $result>=15 && $result<=99 && $resultfec>=1 && $resultfec<=14:
+											echo "<tr class='warning'>";
+												echo "<td>";
+													echo $services;
+												echo "</td>";
+												echo "<td>";
+													echo $resultfec;
+												echo "</td>";
+												echo "<td>";
+													echo $result;
+												echo "</td>";
+											break;
+											case $result<15 && $resultfec:
+											echo "<tr class='danger'>";
+												echo "<td>";
+													echo $services;
+												echo "</td>";
+												echo "<td>";
+													echo $resultfec;
+												echo "</td>";
+												echo "<td>";
+													echo $result;
+												echo "</td>";
+											break;
+										}						
+									}echo "<tr>";
+								 ?>
 							</table>
 						</div>
 					</div>

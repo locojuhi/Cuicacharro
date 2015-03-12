@@ -27,12 +27,18 @@ class AutoController extends BaseController {
 										->orderBy('kilometro', 'desc')
 										->get(array('kilometro'))
 										->first();
-		
 		$serviciosrea = Servrealizado::where('id_auto','=', $id)
 					->get(array('id_servicios'));
-
-		
-
+		$proximose = DB::table('proximose')
+						->join('serv_realizados','proximose.id_servicio','=','serv_realizados.id')
+						->join('servicios','serv_realizados.id','=','servicios.id')
+						->select('proximose.id','proximose.kilometro','proximose.fecha','proximose.status','nombre')
+						->where('status','=','1')
+						->take('10')
+						->orderBy('kilometro','asc')
+						->orderBy('fecha','asc')
+						->get();
+		View::share('id_serv_prox',$proximose);
 		//Compartiendo la variable con la vista.
 		View::share('id_auto', Auto::where('id','=', $id)
 					->get(array('placa')));
