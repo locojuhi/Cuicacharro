@@ -8,8 +8,7 @@ class AutoController extends BaseController {
 		$serv = Servrealizado::where('id_auto', '=', $id_auto)->lists('id');
 		if($x){
 			if($serv){
-		Servrealizado::destroy($serv);	
-			}
+		Servrealizado::destroy($serv);	}
 		Kilometraje::destroy($kilometraje);
 		$x->delete();
 		return Redirect::route('principal')

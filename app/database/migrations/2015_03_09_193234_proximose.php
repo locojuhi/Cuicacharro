@@ -16,7 +16,8 @@ class Proximose extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('id_servicio')->unsigned();
-			$table->foreign('id_servicio')->references('id')->on('serv_realizados');
+			$table->foreign('id_servicio')->references('id')->on('serv_realizados')
+											->onDelete('cascade');
 			$table->integer('kilometro');
 			$table->date('fecha');
 			$table->integer('status')->default('1');

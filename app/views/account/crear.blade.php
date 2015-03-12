@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main2')
 @extends('layouts.jumbotron')
 @section('contenido')
 	@section('jumbomidle')
