@@ -5,7 +5,7 @@
 			@section('jumbomidle')				
 				<!--Esto es para hacer dinamico el proyecto y personalizar esta ventana con la placa del carro que se ha seleccionado.-->
    				<div class="container-fluid">
-   					
+   					<div class="row col-xs-12 col-md-12 col-lg-12">
 	   				@foreach ($id_auto as $auto)
 					    <h1>{{Str::upper($auto->placa)}}</h1>
 					@endforeach
@@ -13,6 +13,11 @@
 							
 							{{$key->nombre." | ".$key->kilometro." | ".$key->fecha." | ".$key->status."<br>"}}
 						@endforeach-->
+					</div>
+					<div class="row col-xs-6 col-md-6 col-lg-6">
+					<a href="{{URL::route('mainPanel')}}" class="btn btn-block btn-primary">Regresar</a>
+						
+					</div>
 				</div>
 				<!--{{$serv_realizado}}-->
 				<a href="kilometraje-actual/{{$id_carro}}"><img src="../../../../public/img/cuicacharro_preguntando.png" class="img-responsive"></a>

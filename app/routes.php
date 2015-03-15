@@ -39,6 +39,20 @@ Route::group(array('before' => 'auth'), function(){
 				)
 			);
 		});
+		//Redirecciona a seleccion de vehiculo
+		Route::get('redireccion/auto',
+			array(
+				'as'=>'redirect-selected',
+				'uses'=>'Autocontroller@backtoAutoSelected'
+				)
+			);
+			//Redireccionamiento hasta el panel principal
+		Route::get('/redirecciona',
+			array(
+				'as'=>'mainPanel',
+				'uses'=>'AutoController@Backtomain'
+				)
+			);
 			//Pagina principal despues de loguear
 			Route::get('/dashboard',
 				array(

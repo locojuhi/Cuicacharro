@@ -1,6 +1,15 @@
 <?php
 class AutoController extends BaseController {
 	//post para eliminar el auto seleccionado
+
+	public function BacktoMain(){
+		return Redirect::action('AutoController@mainpanel');
+		/*return Redirect::action('AutoController@getAutoSelected', array($id_auto))
+											->with('global','Servicio agregado con exito!!!!');*/
+	}
+	public function backtoAutoSelected(){
+		return Redirect::action('AutoController@getAutoSelected',array($id_auto));
+	}
 	public function postEliminarAuto(){
 		$id_auto = Input::get('id_auto');
 		$x = Auto::find($id_auto);

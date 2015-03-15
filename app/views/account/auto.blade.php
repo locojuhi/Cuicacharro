@@ -22,6 +22,14 @@
 					});
 				</script>
 			@section('jumbomidle')
+			<div class="row col-xs-6 col-md-6 col-lg-6">
+			<a href="{{URL::route('mainPanel')}}" class="btn btn-block btn-primary">Regresar</a>
+				
+			</div>
+			<div class="row">
+				<p class="lead"></p>
+			</div>
+			<p class="lead"></p>
 				<form role="form" method="POST" action="{{URL::route('crear-auto-post')}}">
 					<div class="form-group">
 						<label for="nick">Placa:</label>
