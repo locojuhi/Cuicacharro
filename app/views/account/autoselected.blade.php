@@ -30,7 +30,7 @@
 							</button>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="servicio/{{$id_carro}}" class="btn btn-block btn-default"><b>Agregar</b></a></li>
-							    <li><a href="" class="btn btn-block btn-default"><b>Historial</b></a></li>
+							    <li><a href="historial/{{$id_carro}}" class="btn btn-block btn-default"><b>Historial</b></a></li>
 							</ul>
 						</div>
 					</div>
@@ -71,19 +71,19 @@
 										$resultfec= (strtotime($fechas) - strtotime($fechaac))/86400;
 										$result = $kilometraje - $kilometroac;
 										switch ($result && $resultfec) {
-											case $result>=100 && $resultfec>=15:
-											echo "<tr class='success'>";
-											echo "<td>";
-												echo $services;
-											echo "</td>";
-											echo "<td>";
-												echo $resultfec;
-											echo "</td>";
-											echo "<td>";
-												echo $result;
-											echo "</td>";
+											case ($result<15 && $result<-9999999999999999999999999999) or ($resultfec<1 && $resultfec>-9999999999999999999999999999):
+											echo "<tr class='danger'>";
+												echo "<td>";
+													echo $services;
+												echo "</td>";
+												echo "<td>";
+													echo $resultfec;
+												echo "</td>";
+												echo "<td>";
+													echo $result;
+												echo "</td>";
 											break;
-											case $result>=15 && $result<=99 && $resultfec>=1 && $resultfec<=14:
+											case ($result >= 15 && $result<=99) or ($resultfec>=1 && $resultfec<=14):
 											echo "<tr class='warning'>";
 												echo "<td>";
 													echo $services;
@@ -95,17 +95,17 @@
 													echo $result;
 												echo "</td>";
 											break;
-											case $result<15 && $resultfec:
-											echo "<tr class='danger'>";
-												echo "<td>";
-													echo $services;
-												echo "</td>";
-												echo "<td>";
-													echo $resultfec;
-												echo "</td>";
-												echo "<td>";
-													echo $result;
-												echo "</td>";
+											case $result>=100 or $resultfec>=15:
+											echo "<tr class='success'>";
+											echo "<td>";
+												echo $services;
+											echo "</td>";
+											echo "<td>";
+												echo $resultfec;
+											echo "</td>";
+											echo "<td>";
+												echo $result;
+											echo "</td>";
 											break;
 										}						
 									}echo "<tr>";

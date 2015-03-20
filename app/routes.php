@@ -39,6 +39,13 @@ Route::group(array('before' => 'auth'), function(){
 				)
 			);
 		});
+		//historial
+		Route::get('/dashboard/auto/selected/historial/{id}',
+			array(
+				'as'=>'Historial',
+				'uses'=>'AutoController@getHistorial'
+				)
+			);
 		//Redirecciona a seleccion de vehiculo
 		Route::get('redireccion/auto',
 			array(

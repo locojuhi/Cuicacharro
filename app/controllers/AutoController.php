@@ -10,6 +10,11 @@ class AutoController extends BaseController {
 	public function backtoAutoSelected(){
 		return Redirect::action('AutoController@getAutoSelected',array($id_auto));
 	}
+
+	public function getHistorial($id){
+		View::share('id_auto',$id);
+		return View::make('account.historial');
+	}
 	public function postEliminarAuto(){
 		$id_auto = Input::get('id_auto');
 		$x = Auto::find($id_auto);
