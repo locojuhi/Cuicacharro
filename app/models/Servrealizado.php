@@ -7,7 +7,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Servrealizado extends Eloquent implements UserInterface, RemindableInterface {
 
-	protected $fillable	=	array('id_servicios','id_auto','id_kilometraje');
+	protected $fillable	=	array('id_servicios','id_auto','id_kilometraje', 'fecha');
 	use UserTrait, RemindableTrait;
 
 	/**

@@ -21,6 +21,7 @@ class CreateServicesdoneTable extends Migration {
 			$table->foreign('id_auto')->references('id')->on('autos');
 			$table->integer('id_kilometraje')->unsigned();
 			$table->foreign('id_kilometraje')->references('id')->on('kilometrajes');
+			$table->date('fecha');
 			$table->timestamps();
 		});
 	}

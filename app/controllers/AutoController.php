@@ -48,6 +48,7 @@ class AutoController extends BaseController {
 						->join('servicios','serv_realizados.id','=','servicios.id')
 						->select('proximose.id','proximose.kilometro','proximose.fecha','proximose.status','nombre')
 						->where('status','=','1')
+						->where('id_auto','=',$id)
 						->take('10')
 						->orderBy('kilometro','asc')
 						->orderBy('fecha','asc')
@@ -146,7 +147,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+90 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximose::create(
+							Nextser::create(
 								array(
 									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
@@ -164,7 +165,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+180 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximose::create(
+							Nextser::create(
 								array(
 									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
@@ -182,7 +183,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+365 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximose::create(
+							Nextser::create(
 								array(
 									'id_servicio' => $servicio_id,
 									'kilometro' => $kilometraje+$kms,
@@ -200,7 +201,7 @@ class AutoController extends BaseController {
 							$fecha;
 							$nuevafecha = strtotime ( '+1080 day' , strtotime ( $fecha ) ) ;
 							$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-							Proximose::create(
+							Nextser::create(
 								array(
 									'id_servicio'=>$servicio_id,
 									'kilometro'=>$kilometraje+$kms,
