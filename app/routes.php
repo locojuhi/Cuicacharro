@@ -39,6 +39,13 @@ Route::group(array('before' => 'auth'), function(){
 				)
 			);
 		});
+		//Reporte PDF
+		Route::get('/dashboard/auto/selected/historial/pdf/{id}',
+			array(
+				'as'=>'reporte-pdf',
+				'uses'=>'AutoController@getReportePdf'
+				)
+			);
 		//historial
 		Route::get('/dashboard/auto/selected/historial/{id}',
 			array(

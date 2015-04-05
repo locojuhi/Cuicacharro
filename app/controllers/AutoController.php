@@ -12,8 +12,19 @@ class AutoController extends BaseController {
 	}
 
 	public function getHistorial($id){
+		$reporte = DB::table('serv_realizados')
+				->join('servicios','serv_realizados.id_servicios','=','servicios.id')
+				->join('kilometrajes','serv_realizados.id_kilometraje','=','kilometrajes.id')
+				->where('serv_realizados.id_auto','=', $id)
+				->get(array('serv_realizados.fecha', 'servicios.nombre', 'kilometrajes.kilometro'));
+		View::share('reporte',$reporte);
 		View::share('id_auto',$id);
 		return View::make('account.historial');
+
+	}
+	public function getReportePdf(){
+		$html = "hola mundo";
+		return PDF::load($html,'A4','portrait')->show(); 
 	}
 	public function postEliminarAuto(){
 		$id_auto = Input::get('id_auto');
@@ -122,7 +133,8 @@ class AutoController extends BaseController {
 					array(
 						'id_servicios'=>$id_servicio,
 						'id_auto'=>$id_auto,
-						'id_kilometraje'=>$x
+						'id_kilometraje'=>$x,
+						'fecha'=>$fecha
 						)
 					);
 				if ($servicioagrega){
