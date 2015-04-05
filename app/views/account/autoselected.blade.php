@@ -64,14 +64,12 @@
 									$status;
 									$fechaac= date('Y-m-d');
 									foreach ($id_serv_prox as $key) {
-										
 										$services=$key->nombre;
 										$kilometraje = $key->kilometro;
 										$fechas = $key->fecha;
 										$resultfec= (strtotime($fechas) - strtotime($fechaac))/86400;
 										$result = $kilometraje - $kilometroac;
-										switch ($result && $resultfec) {
-											case ($result<15 && $result<-9999999999999999999999999999) or ($resultfec<1 && $resultfec>-9999999999999999999999999999):
+										if($result < 15 || $resultfec < 5){
 											echo "<tr class='danger'>";
 												echo "<td>";
 													echo $services;
@@ -82,8 +80,7 @@
 												echo "<td>";
 													echo $result;
 												echo "</td>";
-											break;
-											case ($result >= 15 && $result<=99) or ($resultfec>=1 && $resultfec<=14):
+										}elseif(($result >=15 && $result <=99)||($resultfec >=1 && $resultfec<=14)){
 											echo "<tr class='warning'>";
 												echo "<td>";
 													echo $services;
@@ -94,8 +91,7 @@
 												echo "<td>";
 													echo $result;
 												echo "</td>";
-											break;
-											case $result>=100 or $resultfec>=15:
+										}elseif($result >= 100 || $resultfec >= 15){
 											echo "<tr class='success'>";
 											echo "<td>";
 												echo $services;
@@ -106,8 +102,8 @@
 											echo "<td>";
 												echo $result;
 											echo "</td>";
-											break;
-										}						
+										}
+										
 									}echo "<tr>";
 								 ?>
 							</table>
