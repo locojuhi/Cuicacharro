@@ -88,11 +88,17 @@ class UsuarioController extends BaseController {
 			//si la en la base de datos se ha insertado esto. entonces se procedera a lo que esta dentro del "if"
 			if($creater){
 				//Aqui comienza el envio del correo
-				Mail::send('emails.auth.prueba', array(
+				$correo=Mail::send('emails.auth.prueba', array(
 					'link'=>URL::route('usuario-activar', $codigo),
 					'usuario'=>$usuarios), function($message) use ($creater){
 					$message->to($creater->email, $creater->usuario)->subject('Verifique su cuenta por favor');
 				});
+				try {
+					$correo;
+					return Redirect::route('index-get')->with('global','Te has registrado satisfactoriamente, Confirma en tu correo la llave de activacion ahora');
+				} catch (Exception $e) {
+					return Redirect::route('index-get')->with('global','Te has registrado satisfactoriamente, pero no se te ha pdido enviar el correo');
+				}
 				//Hasta aqui se envia el correo
 				return Redirect::route('index-get')->with('global','Te has registrado satisfactoriamente, Confirma en tu correo la llave de activacion ahora');
 			}

@@ -22,9 +22,35 @@ class AutoController extends BaseController {
 		return View::make('account.historial');
 
 	}
-	public function getReportePdf(){
-		$html = "hola mundo";
-		return PDF::load($html,'A4','portrait')->show(); 
+	public function getReportePdf($id){
+		$usuario=DB::table('usuarios')
+				->join('autos','usuarios.id','=','autos.id_usuario')
+				->where('autos.id','=',$id)
+				->get(array('usuarios.usuario','usuarios.email'));
+
+		$reporte = DB::table('serv_realizados')
+				->join('servicios','serv_realizados.id_servicios','=','servicios.id')
+				->join('kilometrajes','serv_realizados.id_kilometraje','=','kilometrajes.id')
+				->where('serv_realizados.id_auto','=', $id)
+				->get(array('serv_realizados.fecha', 'servicios.nombre', 'kilometrajes.kilometro'));
+				
+				$usercorreo = null;
+				$usernombre= null;
+				foreach ($usuario as $key) {
+					$usernombre=$key->usuario;
+					$usercorreo = $key->email;
+				}
+
+				Mail::send('emails.auth.reporte', array('link'=>'URL::route(reporte-pdf', $reporte), function($message) use ($usercorreo) {
+    					$message->to($usercorreo, 'Usuario')->subject('Welcome!');
+				});
+
+				/*Mail::send('emails.auth.reporte', array('link'=>'URL::route(reporte-pdf, $reporte)', 'username'=>$usernombre), function($message){
+					$message->to($usercorreo, $usernombre)->subject('Reporte');
+				});*/
+
+
+		
 	}
 	public function postEliminarAuto(){
 		$id_auto = Input::get('id_auto');
@@ -56,7 +82,7 @@ class AutoController extends BaseController {
 					->get(array('id_servicios'));
 		$proximose = DB::table('proximose')
 						->join('serv_realizados','proximose.id_servicio','=','serv_realizados.id')
-						->join('servicios','serv_realizados.id','=','servicios.id')
+						->join('servicios','serv_realizados.id_servicios','=','servicios.id')
 						->select('proximose.id','proximose.kilometro','proximose.fecha','proximose.status','nombre')
 						->where('status','=','1')
 						->where('id_auto','=',$id)
@@ -84,6 +110,10 @@ class AutoController extends BaseController {
 		$validador=Auto::where('id','=',$id)->where('id_usuario','=', Auth::user()->id)->get(array('id','id_usuario'));
 		$idauto=null;
 		$idusuario=null;
+		$kilometrajeactual = Kilometraje::where('id_auto','=',$id)
+										->orderBy('kilometro', 'desc')
+										->get(array('kilometro'))
+										->first();
 		foreach($validador as $auto)
 					{
 					   $idauto=$auto['id'];
@@ -93,17 +123,21 @@ class AutoController extends BaseController {
 			$servicios = DB::table('servicios')->lists('id', 'nombre');
 			View::share('servicios', $servicios);
 			View::share('id_auto',$id);
+			View::share('kms',$kilometrajeactual);
 			return View::make('account.agregaservice');
 
 		}else{return 'este auto no te pertenece.';}		
 	}
 	public function postAgregarServicio(){
+		$date = date('Y-m-j');
+		$validfecha = strtotime ( '+1 day' , strtotime ( $date ) ) ;
+		$validnuevafecha = date ( 'Y-m-j' , $validfecha );
 		$id_auto=Input::get('id_auto');
 		$validador = Validator::make(Input::all(),
 			array(
 				'id'=>'required|exists:servicios',
 				'kilometraje'=>'required|numeric',
-				'fecha'=>'required|date'
+				'fecha'=>'required|date|before:'.$validnuevafecha
 				)
 			);
 		if($validador->fails()){
@@ -138,13 +172,16 @@ class AutoController extends BaseController {
 						)
 					);
 				if ($servicioagrega){
+
 					$id_servicio_rea = Servrealizado::where('id_kilometraje','=', $x)
 													->get(array('id'));
+					
 					$servicio_id=null;
 					foreach ($id_servicio_rea as $key) {
 						$servicio_id = $key->id;
 					}
-					
+
+
 					$periodo=Servicio::where('id','=',$id_servicio)
 							->get(array('tiempo_id'));
 
@@ -167,6 +204,7 @@ class AutoController extends BaseController {
 									'status'=>'1'
 									)
 								);
+							
 							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 											->with('global','Servicio agregado con exito!!!!');
 							break;
@@ -185,6 +223,7 @@ class AutoController extends BaseController {
 									'status'=>'1'
 									)
 								);
+							
 							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 											->with('global','Servicio agregado con exito!!!!');
 							break;
@@ -203,6 +242,7 @@ class AutoController extends BaseController {
 									'status' => '1'
 									)
 								);
+							
 							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 											->with('global','Servicio agregado con exito!!!!');
 							break;
@@ -221,6 +261,7 @@ class AutoController extends BaseController {
 									'status'=>'1'
 									)
 								);
+							
 							return Redirect::action('AutoController@getAutoSelected', array($id_auto))
 											->with('global','Servicio agregado con exito!!!!');
 							break;
@@ -253,6 +294,7 @@ class AutoController extends BaseController {
 		/*Todas estas lineas de codigo son utilizadas para que el usuario solo pueda acceder a su vehiculo
 		y no al de los demas*/
 		//aqui se consulta los datos del auto
+
 		$validador=Auto::where('id','=',$id)->where('id_usuario','=', Auth::user()->id)->get(array('id','id_usuario'));
 		$idauto=null;
 		$idusuario=null;
@@ -263,7 +305,12 @@ class AutoController extends BaseController {
 		}
 		//validacion
 		if($idauto==$id && $idusuario==Auth::user()->id){
+			$kilometrajeactual = Kilometraje::where('id_auto','=',$id)
+										->orderBy('kilometro', 'desc')
+										->get(array('kilometro'))
+										->first();
 			View::share('id_auto',$id);
+			View::share('kms',$kilometrajeactual);
 			return View::make('account.agregarkilometroactual');
 		}else{
 			return 'este auto no te pertenece.';
@@ -271,6 +318,11 @@ class AutoController extends BaseController {
 	}
 	public function postAgregarKilometrajeatual(){
 		$id_auto=Input::get('id_auto');
+		$kilometrajeactual = Kilometraje::where('id_auto','=',$id_auto)
+										->orderBy('kilometro', 'desc')
+										->get(array('kilometro'))
+										->first();
+		$kmsactual = $kilometrajeactual->kilometro;
 		$validador = Validator::make(Input::all(),
 			array(
 				'kilometraje'=>'required|numeric'
@@ -278,9 +330,13 @@ class AutoController extends BaseController {
 			);
 		if($validador->fails()){
 			return Redirect::back()
-					->withErrors($validador);
+					->with($validador);
 					print_r($validator);
 		}else{
+			if($kmsactual > Input::get('kilometraje')){
+				return Redirect::back()
+					->with('global','Debe ser un numero mayor a: '.$kmsactual);
+			}else{
 			$id_auto = Input::get('id_auto');
 			$kilometraje = Input::get('kilometraje');
 			$fecha = date("Y-m-d"); 
@@ -295,6 +351,7 @@ class AutoController extends BaseController {
 			}
 		}
 	}
+}
 	//Agrega un kilometraje de cualquier fecha
 	public function postAgregarKilometraje(){
 		$validador = Validator::make(Input::all(),

@@ -10,6 +10,11 @@
 				<div class="row"><p class="lead"></p></div>
 				<p class="lead"></p>
 				<form role="form" method="POST" action="{{URL::route('agregar-servicio-post')}}">
+					<div class="container-flow">
+						<?php 
+							echo "<h4> Km actual es: ".Str::upper($kilometroac=$kms->kilometro)."</h4>";
+							?>
+					</div>
 					<div class="form-group">
 						<label for="nick">Servicio</label>
 						<input type ="hidden" name="id_auto" value="{{$id_auto}}">
