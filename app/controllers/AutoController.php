@@ -40,15 +40,12 @@ class AutoController extends BaseController {
 					$usernombre=$key->usuario;
 					$usercorreo = $key->email;
 				}
-
+	View::share('reporte', $reporte);
 				Mail::send('emails.auth.reporte', array('link'=>'URL::route(reporte-pdf', $reporte), function($message) use ($usercorreo) {
     					$message->to($usercorreo, 'Usuario')->subject('Welcome!');
 				});
-
-				/*Mail::send('emails.auth.reporte', array('link'=>'URL::route(reporte-pdf, $reporte)', 'username'=>$usernombre), function($message){
-					$message->to($usercorreo, $usernombre)->subject('Reporte');
-				});*/
-
+			return Redirect::action('AutoController@getAutoSelected', array($id))
+											->with('global','Reporte enviado por correo');
 
 		
 	}
